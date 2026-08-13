@@ -259,6 +259,7 @@
     <ol>
       <li><a href="#intro">Introduction</a></li>
       <li><a href="#start">Getting started</a></li>
+      <li><a href="#prelaunch">Token launch</a></li>
       <li><a href="#join">Join notices</a></li>
       <li><a href="#contracts">Contract cleanup</a></li>
       <li><a href="#links">Link cleanup</a></li>
@@ -299,6 +300,37 @@
       </ol>
       <div class="note warn">
         <p><span class="tag">Common mistake</span>Adding the bot without promoting it looks like it is working — it sits quietly in the group and does nothing, because Telegram refuses the deletion. If notices are still piling up, check the Delete messages permission first.</p>
+      </div>
+    </section>
+
+    <section id="prelaunch">
+      <h2>Token launch</h2>
+      <p>A launch window is when a group is worth attacking: fake contracts, cloned admins, wallet-draining links. One command locks everything down, and one lifts it.</p>
+      <div class="visor"><div class="visor-in">
+        <div class="cmdrow"><code>/prelaunch</code><span class="what">Maximum security. Deletes anything a member posts that carries a link, a contract address, a forward, or a known scam phrase.</span></div>
+        <div class="cmdrow"><code>/prelaunchoff</code><span class="what">Back to your normal settings.</span></div>
+      </div></div>
+      <h3>What it removes</h3>
+      <p>While it is on, an ordinary member's message is deleted if it contains any of the following. Administrators are untouched, so your own announcements go through.</p>
+      <div class="tablewrap">
+        <table>
+          <thead><tr><th>Removed</th><th>Why it matters during a launch</th></tr></thead>
+          <tbody>
+            <tr><td>Links</td><td>The delivery method for wallet drainers and fake sale pages.</td></tr>
+            <tr><td>Contract addresses</td><td>Stops a fake contract being posted alongside the real one.</td></tr>
+            <tr><td>Forwarded messages</td><td>A forward carries someone else's framing into your group.</td></tr>
+            <tr><td>Wallet prompts</td><td>"Connect your wallet", "verify wallet", seed phrase and private key requests.</td></tr>
+            <tr><td>Fake support</td><td>"Official admin", "support team" — the classic impersonation opener.</td></tr>
+            <tr><td>DM lures</td><td>"DM me", "inbox me" — moving a victim to a private chat is step one.</td></tr>
+            <tr><td>Giveaway bait</td><td>Airdrops, free mints, presales, whitelist spots, "claim now".</td></tr>
+            <tr><td>Guaranteed returns</td><td>"Risk free", "100x", "double your holdings".</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <h3>It does not rewrite your settings</h3>
+      <p>Prelaunch sits <em>on top of</em> whatever the group already had. If contract cleanup was off before, it stays off in your settings and is simply overridden while prelaunch runs. Turning it off with <code>/prelaunchoff</code> puts you back exactly where you were, with nothing to reconfigure.</p>
+      <div class="note tip">
+        <p><span class="tag">How the scanning works</span>Detection is pattern-based and runs locally on every message, so it is instant and has no per-message cost. It is deliberately narrow: during a launch, deleting a real holder's message is more damaging than letting one borderline post stand, so ordinary chatter — "gm", "what time does trading open", "the chart looks good" — is left alone.</p>
       </div>
     </section>
 
@@ -374,6 +406,7 @@
         <table>
           <thead><tr><th>Command</th><th>Effect</th><th>Default</th></tr></thead>
           <tbody>
+            <tr><td><code>/prelaunch</code> · <code>/prelaunchoff</code></td><td>Launch lockdown — everything below, plus scam phrases and forwards</td><td>Off</td></tr>
             <tr><td><code>/cleanoff</code> · <code>/cleanon</code></td><td>Join notice removal</td><td>On</td></tr>
             <tr><td><code>/cleaneth</code> · <code>/cleanethoff</code></td><td>Contract address cleanup</td><td>Off</td></tr>
             <tr><td><code>/cleanlinks</code> · <code>/cleanlinksoff</code></td><td>Link cleanup</td><td>Off</td></tr>
@@ -416,6 +449,17 @@
         <div class="answer">
           <p>Three things to check, in order. Is the bot an <strong>administrator</strong>, not just a member? Does it hold the <strong>Delete messages</strong> permission? And has somebody run <code>/cleanoff</code> in that group?</p>
           <p>The first two are by far the most common. Telegram simply refuses the deletion, and the bot has no way to announce that in the group.</p>
+        </div>
+      </details>
+
+      <details><summary>Does <code>/prelaunch</code> undo my other settings when I turn it off?</summary>
+        <div class="answer"><p>No. It overrides them while it runs rather than rewriting them, so <code>/prelaunchoff</code> puts the group back exactly as it was. Nothing to reconfigure afterwards.</p></div>
+      </details>
+
+      <details><summary>Will <code>/prelaunch</code> delete my community's normal messages?</summary>
+        <div class="answer">
+          <p>Ordinary chatter is left alone — the scam patterns are deliberately narrow, because during a launch deleting a real holder's message costs more than missing one borderline post.</p>
+          <p>What it <em>will</em> catch broadly is <strong>every link and every contract address from non-admins</strong>, with no exceptions. If your members normally share links, expect those to go while it is on.</p>
         </div>
       </details>
 
