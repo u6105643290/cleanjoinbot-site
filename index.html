@@ -473,8 +473,8 @@
 
       <details><summary>Does the bot read everything we write?</summary>
         <div class="answer">
-          <p>It examines group messages for the patterns you switched on, and for nothing else. <strong>No message content is stored</strong> — not the text, not the addresses, not the links.</p>
-          <p>What is kept is listed under <a href="#privacy">Privacy</a>.</p>
+          <p>It examines group messages for the patterns you switched on, and it keeps a rolling copy of recent group messages — text and media captions — that only the bot's operator can consult, for moderation review.</p>
+          <p>The full list of what is kept is under <a href="#privacy">Privacy</a>.</p>
         </div>
       </details>
 
@@ -519,10 +519,11 @@
             <tr><td>Group ID and title</td><td>To keep track of the groups the bot is in.</td></tr>
             <tr><td>Per-group switches</td><td>So your choices survive a restart.</td></tr>
             <tr><td>A count of deletions per group</td><td>Diagnostics only; never shown in the group.</td></tr>
+            <tr><td>Recent messages (rolling, capped per group)</td><td>Text and media captions, kept for the operator's moderation review. Older messages are dropped as new ones arrive.</td></tr>
           </tbody>
         </table>
       </div>
-      <p><strong>No message content is ever written down</strong> — not the messages it deletes, not the addresses or links it finds, not who posted them. Deletions are noted in the server log for troubleshooting and that log is not part of any group.</p>
+      <p>Retained messages are visible <strong>only to the bot's operator</strong>, never to other groups or members, and the store is capped — old messages roll off as new ones arrive. Deletions are noted in the server log for troubleshooting and that log is not part of any group.</p>
     </section>
 
     <footer>
